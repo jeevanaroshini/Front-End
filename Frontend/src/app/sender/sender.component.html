@@ -1,1 +1,13 @@
 <p>sender works!</p>
+<tr *ngFor="let rec of userdata">
+<p>{{rec.username}}</p>
+<p>{{rec.customerID}}</p>
+<p>{{rec.custName}}</p>
+<p>{{rec.balance}}</p>
+<p>{{rec.overDraft}}</p>
+
+<button type ="button" name="button" (click)= "getSessionVariable()"> CLICK</button>
+<p >
+    <!-- Population: {{country.population}}
+    Location: {{country.latlng}} -->
+ </p>

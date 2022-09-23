@@ -18,15 +18,22 @@ export class LoginComponent implements OnInit {
   errorMessage:String=""
   login(){
     console.log(this.username);
-    console.log(this.password)
+    console.log(this.password);
+    localStorage.setItem('username', this.username);
+    localStorage.setItem('password', this.password);
     let response=this.dbshttp.get("http://localhost:8080/login?username="+this.username+"&&password="+this.password,{responseType:'text' as 'json'});
     response.subscribe((dbsData)=>{
       console.log(dbsData)
-      if(dbsData=="employee")  this.router.navigate(['employee']);
+      if(dbsData=="employee"){
+        this.router.navigate(['employee']);
+
+      }  
       else if(dbsData=="customer")  this.router.navigate(['sender']);
       else
         this.errorMessage="Bad Credentials";
-    });
+    }
+    
+    );
     
   }
 
