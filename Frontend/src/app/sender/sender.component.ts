@@ -15,7 +15,7 @@ export class SenderComponent implements OnInit {
     let response=this.dbshttps.get("http://localhost:8080/sender?username="+localStorage.getItem('username'))
     response.subscribe((dbsdata)=>{
       this.userdata=dbsdata;
-      console.log(this.userdata[0].username);
+     // console.log(this.userdata[0].username);
       
     }
     )

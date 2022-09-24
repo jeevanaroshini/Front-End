@@ -1,1 +1,75 @@
-<p>register works!</p>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+   
+    
+    <form role="form">
+        <div class="panel panel-primary setup-content" id="step-1">
+            <div class="panel-heading">
+                 <h3 class="panel-title">Reciever Details</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label">First Name</label>
+                    <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter First Name" name="username" [(ngModel)]="username" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Last Name</label>
+                    <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" />
+                </div>
+      
+              <button class="btn btn-primary nextBtn pull-right" type="button" (click)="getCustomerDetails()">Next</button>
+            </div>
+        </div>
+       
+    </form>
+</div>
+
+
+<script>
+  $(document).ready(function () {
+
+var navListItems = $('div.setup-panel div a'),
+    allWells = $('.setup-content'),
+    allNextBtn = $('.nextBtn');
+
+allWells.hide();
+
+navListItems.click(function (e) {
+    e.preventDefault();
+    var $target = $($(this).attr('href')),
+        $item = $(this);
+
+    if (!$item.hasClass('disabled')) {
+        navListItems.removeClass('btn-success').addClass('btn-default');
+        $item.addClass('btn-success');
+        allWells.hide();
+        $target.show();
+        $target.find('input:eq(0)').focus();
+    }
+});
+
+allNextBtn.click(function () {
+    var curStep = $(this).closest(".setup-content"),
+        curStepBtn = curStep.attr("id"),
+        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+        curInputs = curStep.find("input[type='text'],input[type='url']"),
+        isValid = true;
+
+    $(".form-group").removeClass("has-error");
+    for (var i = 0; i < curInputs.length; i++) {
+        if (!curInputs[i].validity.valid) {
+            isValid = false;
+            $(curInputs[i]).closest(".form-group").addClass("has-error");
+        }
+    }
+
+    if (isValid) nextStepWizard.removeAttr('disabled').trigger('click');
+});
+
+$('div.setup-panel div a.btn-success').trigger('click');
+});
+</script>
