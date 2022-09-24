@@ -16,8 +16,9 @@
                     <label class="control-label">First Name</label>
                     <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter First Name" name="username" [(ngModel)]="username" />
                 </div>
+                <label *ngIf= "userName!=''" class="control-label">{{userName}}</label>
                 <div class="form-group">
-                    <label class="control-label">Last Name</label>
+                    <label class="control-label">Enter Amount</label>
                     <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" />
                 </div>
       

@@ -10,6 +10,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 export class ReceiverComponent implements OnInit {
 
   username: string = '';
+  userName: string = '';
   clickme() {
     console.log(this.username);
   }
@@ -25,6 +26,7 @@ export class ReceiverComponent implements OnInit {
     response.subscribe((dbsdata)=>{
       this.userdata=dbsdata;
      console.log(this.userdata);
+     this.userName=this.userdata[0].custName;
       
     });
   }

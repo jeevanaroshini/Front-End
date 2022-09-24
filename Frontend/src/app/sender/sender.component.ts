@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sender',
@@ -7,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sender.component.css']
 })
 export class SenderComponent implements OnInit {
+navigate() {
+  this.router.navigate(['receiver']);
+}
 
-  constructor(private dbshttps:HttpClient) { }
+  constructor(private dbshttps:HttpClient, private router: Router) { }
   userdata:any
   ngOnInit(): void {
     console.log(localStorage.getItem('username'));
