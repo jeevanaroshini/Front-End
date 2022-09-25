@@ -56,7 +56,7 @@ testdata:any
     this.header.set('Access-Control-Allow-Origin', '*');
     // this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status=true";
     this.url="http://localhost:8080/receiver?cusId=CUS01&amount=500&cusName=TJeevanaRoshini&recId=CUS02&recName=MohammedShariq&status=true"
-    this.res = this.dbshttps.get(this.url,{headers:this.header});
+    this.res = this.dbshttps.get(this.url,{responseType:'text' as 'json'});
     this.res.subscribe((data:any)=>{
       this.testdata=data
     })
@@ -65,7 +65,7 @@ testdata:any
 
 
     this.url="localhost:8080/updateBalance?cust="+this.cusdata[0].username+"&amount="+this.amount+"&rec="+this.userdata[0].username;
-    this.dbshttps.get(this.url);
+    this.dbshttps.get(this.url,{responseType:'text' as 'json'});
    
     
 
