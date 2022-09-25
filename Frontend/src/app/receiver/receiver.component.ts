@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-receiver',
@@ -16,7 +17,7 @@ export class ReceiverComponent implements OnInit {
     console.log(this.username);
   }
 testdata:any
-  constructor(private dbshttps:HttpClient) { }
+  constructor(private dbshttps:HttpClient,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -50,45 +51,60 @@ testdata:any
     });
     
   }
+  data1:any
+  status:boolean=true;
   url:string="";
   res:any;
   blacklist:string="";
   makeATransaction(){
+    this.cusdata[0].status=true;
 
     if(localStorage.getItem('username')!=null){
 
-      let response=this.dbshttps.get("localhost:8080/blacklist?username="+this.userdata[0].username);
-      response.subscribe((dbsData)=>{
-      console.log(dbsData)})
+      let response=this.dbshttps.get("http://localhost:8080/blacklist?username="+this.userdata[0].username);
+      response.subscribe((data)=>{
+        this.data1=data;
+        console.log(this.blacklist=this.data1);
         
-      this.header = new HttpHeaders();
-      this.header.set('Access-Control-Allow-Origin', '*');
+        if( this.blacklist=="true")     
+      {
+        this.status=false;
+        console.log("status set to false");
+      }
+      });
+        
+      // this.header = new HttpHeaders();
+      // this.header.set('Access-Control-Allow-Origin', '*');
 
-      this.cusdata[0].status=true;
-
+      // this.blacklist=this.data1;
       if(this.overdraft=="false"){
-        if(this.amount>this.balance || this.blacklist=="true")     
+        if(this.amount>this.balance)     
         {
-          this.cusdata[0].status=false;
+          this.status=false;
           console.log("status set to false");
         }
-        
+
       }
-      if(this.cusdata[0].status==true){
-        // this.url="localhost:8080/updateBalance?cust="+this.cusdata[0].username+"&amount="+this.amount+"&rec="+this.userdata[0].username;
-        // this.dbshttps.get(this.url);
-        console.log("Balance Updated");
+      
+      if(this.status==true){
+        this.url="http://localhost:8080/updateBalance?cust="+this.cusdata[0].username+"&amount="+this.amount+"&rec="+this.userdata[0].username;
+        let response=this.dbshttps.get(this.url,{responseType: 'text' as 'json'});
+        response.subscribe((data)=>{this.data1=data;
+        console.log(this.data1)});
 
       }
   
-           // this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status=true";
-        //   this.url="http://localhost:8080/receiver?cusId=CUS01&amount=500&cusName=TJeevanaRoshini&recId=CUS02&recName=MohammedShariq&status=true"
-        //   this.res = this.dbshttps.get(this.url,{headers:this.header});
-        //   this.res.subscribe((data:any)=>{
-        //   this.testdata=data
+          this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status="+this.status;
+          // this.url="http://localhost:8080/receiver?cusId=CUS01&amount=500&cusName=TJeevanaRoshini&recId=CUS02&recName=MohammedShariq&status=true"
+          response= this.dbshttps.get(this.url,{responseType: 'text' as 'json'});
+          response.subscribe((data:any)=>{
+          console.log(this.testdata=data);
           
-        //  })
-         console.log("transaction recorded");
+          })
+          console.log("transaction recorded");
+          // this.router.navigate(['sender'])  .then(() => {
+          //   window.location.reload();
+          // });
         // console.log(this.url)
         // console.log(this.testdata)
   

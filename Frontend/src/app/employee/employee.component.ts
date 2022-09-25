@@ -11,10 +11,10 @@ export class EmployeeComponent implements OnInit {
   constructor(private dbshttp:HttpClient) { }
 
   ngOnInit(): void {
-    let response = this.dbshttp.get("http://localhost:8080/log",{responseType:'text' as 'json'});
+    let response = this.dbshttp.get("localhost:8080/log",{responseType: 'text' as 'json'});
     response.subscribe((data)=>{
 this.transactionData= data;
-console.log(this.transactionData[0].cusId)
+console.log(this.transactionData)
     })
     
   
