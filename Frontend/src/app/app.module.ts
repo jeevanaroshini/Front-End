@@ -10,7 +10,8 @@ import { ReceiverComponent } from './receiver/receiver.component';
 import { SenderComponent } from './sender/sender.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import {HttpClientModule} from '@angular/common/http';
-import { EmployeeComponent } from './employee/employee.component'
+import { EmployeeComponent } from './employee/employee.component';
+
 @NgModule({
   declarations: [
     AppComponent,
