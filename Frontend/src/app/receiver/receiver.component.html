@@ -20,14 +20,14 @@
                 
                 <div *ngIf= "userName!=''">
                     <label  class="control-label"><pre>Receiver Name:   {{userName}}</pre></label><br>
-                    <label  class="control-label"><pre>Your Available Balance: {{balance}}</pre></label><br>
+                    <label  class="control-label"><pre>Your Available Balance: {{balance}} </pre></label><br>
                     <label  class="control-label"><pre>Over Draft:       {{overdraft}}</pre></label><br>
                 </div>
                 
                 
                 <div class="form-group">
                     <label class="control-label">Enter Amount</label>
-                    <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" name="amount" [(ngModel)]= "amount" />
+                    <input onkeyup= ""maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" name="amount" [(ngModel)]= "amount" />
                 </div>
       
               <button class="btn btn-primary nextBtn pull-right" type="button" (click)="makeATransaction()">Make A Transaction</button>
