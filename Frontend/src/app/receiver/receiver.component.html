@@ -19,9 +19,9 @@
                 <button class="btn btn-primary nextBtn pull-right" type="button" (click)="getCustomerDetails()">Get Details</button>
                 
                 <div *ngIf= "userName!=''">
-                    <label  class="control-label">Name:              {{userName}}</label><br><br>
-                    <label  class="control-label">Available Blanace: {{balance}}</label><br><br>
-                    <label  class="control-label">OVer Draft:        {{overdraft}}</label><br><br>
+                    <label  class="control-label"><pre>Receiver Name:   {{userName}}</pre></label><br>
+                    <label  class="control-label"><pre>Your Available Balance: {{balance}}</pre></label><br>
+                    <label  class="control-label"><pre>Over Draft:       {{overdraft}}</pre></label><br>
                 </div>
                 
                 
