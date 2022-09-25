@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 
@@ -24,6 +24,9 @@ testdata:any
   cusdata:any
   balance:Number=0;
   overdraft:string="";
+  header:any;
+
+
 
   getCustomerDetails(){
     let response=this.dbshttps.get("http://localhost:8080/sender?username="+this.username);
@@ -46,13 +49,22 @@ testdata:any
     
   }
   url:string="";
+  res:any;
   makeATransaction(){
-    this.url="localhost:8080/receiver?cusId="+this.cusdata[0].cusId+"&amount="+this.amount+"&cusName="+this.cusdata[0].cusName+"&recId="+this.userdata[0].recId+"&recName="+this.userdata[0].recName+"&status=true";
-    this.dbshttps.get(this.url);
-  
-    this.url="localhost:8080/updateBalance?cust="+this.cusdata[0].username+"&amount="+this.amount+"&rec="+this.userdata[0].username;
-    
 
+    this.header = new HttpHeaders();
+    this.header.set('Access-Control-Allow-Origin', '*');
+    // this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status=true";
+    this.url="http://localhost:8080/receiver?cusId=CUS01&amount=500&cusName=TJeevanaRoshini&recId=CUS02&recName=MohammedShariq&status=true"
+    this.res = this.dbshttps.get(this.url,{headers:this.header});
+    this.res.subscribe((data:any)=>{
+      this.testdata=data
+    })
+    console.log(this.url)
+    console.log(this.testdata)
+
+
+    this.url="localhost:8080/updateBalance?cust="+this.cusdata[0].username+"&amount="+this.amount+"&rec="+this.userdata[0].username;
     this.dbshttps.get(this.url);
    
     

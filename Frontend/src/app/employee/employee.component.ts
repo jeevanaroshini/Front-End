@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-
-  constructor() { }
+  transactionData:any
+  constructor(private dbshttp:HttpClient) { }
 
   ngOnInit(): void {
+    let response = this.dbshttp.get("http://localhost:8080/log",{responseType:'text' as 'json'});
+    response.subscribe((data)=>{
+this.transactionData= data;
+console.log(this.transactionData[0].cusId)
+    })
+    
+  
   }
+ 
+
+ 
 
 }
