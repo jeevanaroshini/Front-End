@@ -53,3 +53,36 @@
     </div>
   </section>
 </div>
+<div class="center">
+  <section class="vh-100" style="background-color: #f4f5f7;">
+<h3 style="text-align: center;">Your Transaction History</h3>
+  <table class="table table-light"style="width: 70%;margin-left: auto;margin-right: auto;">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">CustName</th>
+        <th scope="col">Amount</th>
+        <th scope="col">CustID</th>
+        <th scope="col">RecName</th>
+        <th scope="col">RecId</th>
+        <th scope="col">Status</th>
+        <th scope="col">Timestamp</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let trans of userdata1;let i = index">
+        <td >{{i+1}}</td>
+        <td>{{trans.cusName}}</td>
+        <td>{{trans.amount}}</td>
+        <td >{{trans.cusId}}</td>
+        <td>{{trans.recName}}</td>
+        <td >{{trans.recId}}</td>
+        <td>{{trans.status}}</td>
+        <td>{{trans.timestamp}}</td>
+        
+      
+    </tbody>
+  </table>
+</section>
+</div>

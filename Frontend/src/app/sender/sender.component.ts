@@ -14,6 +14,8 @@ navigate() {
 
   constructor(private dbshttps:HttpClient, private router: Router) { }
   userdata:any
+  userdata1:any
+  url:string="";
   ngOnInit(): void {
     console.log(localStorage.getItem('username'));
     let response=this.dbshttps.get("http://localhost:8080/sender?username="+localStorage.getItem('username'))
@@ -23,7 +25,14 @@ navigate() {
       
     }
     )
-    
+    this.url="http://localhost:8080/customerHistory?username="+localStorage.getItem('username');
+    response=this.dbshttps.get(this.url)
+    response.subscribe((dbsdata)=>{
+      this.userdata1=dbsdata;
+     // console.log(this.userdata[0].username);
+      
+    }
+    )
   }
   
   getSessionVariable(){
