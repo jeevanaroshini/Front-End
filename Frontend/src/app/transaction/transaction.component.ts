@@ -13,6 +13,7 @@ export class TransactionComponent implements OnInit {
   ngOnInit(): void {
   }
  goHome(){
+  localStorage.clear();
   this.router.navigate(['login'])
  }
  goSender(){
