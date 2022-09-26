@@ -57,19 +57,18 @@ testdata:any
   res:any;
   blacklist:string="";
   makeATransaction(){
-    this.cusdata[0].status=true;
 
     if(localStorage.getItem('username')!=null){
-
       let response=this.dbshttps.get("http://localhost:8080/blacklist?username="+this.userdata[0].username);
       response.subscribe((data)=>{
         this.data1=data;
-        console.log(this.blacklist=this.data1);
-        
-        if( this.blacklist=="true")     
+        this.blacklist=this.data1+""
+        console.log(this.blacklist)
+      if(this.blacklist=='true')     
       {
+        console.log("Working");
         this.status=false;
-        console.log("status set to false");
+        console.log(this.status);
       }
       });
         
@@ -85,7 +84,7 @@ testdata:any
         }
 
       }
-      
+      console.log(this.status+"---->Update balance")
       if(this.status==true){
         this.url="http://localhost:8080/updateBalance?cust="+this.cusdata[0].username+"&amount="+this.amount+"&rec="+this.userdata[0].username;
         let response=this.dbshttps.get(this.url,{responseType: 'text' as 'json'});

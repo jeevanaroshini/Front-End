@@ -13,10 +13,10 @@
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="control-label">First Name</label>
+                    <label class="control-label">Reciever Id</label>
                     <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter First Name" name="username" [(ngModel)]= "username" />
                 </div>
-                <button class="btn btn-primary nextBtn pull-right" type="button" (click)="getCustomerDetails()">Get Details</button>
+                <button class="btn btn-primary nextBtn pull-left" type="button" (click)="getCustomerDetails()">Get Details</button><br><br>
                 
                 <div *ngIf= "userName!=''">
                     <label  class="control-label"><pre>Receiver Name:   {{userName}}</pre></label><br>
