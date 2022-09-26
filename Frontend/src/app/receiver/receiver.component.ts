@@ -54,56 +54,134 @@ testdata:any
   data1:any
   status:boolean=true;
   url:string="";
+  url2:string="";
   res:any;
   blacklist:string="";
   makeATransaction(){
 
     if(localStorage.getItem('username')!=null){
-      let response=this.dbshttps.get("http://localhost:8080/blacklist?username="+this.userdata[0].username);
-      response.subscribe((data)=>{
-        this.data1=data;
-        this.blacklist=this.data1+""
-        console.log(this.blacklist)
-      if(this.blacklist=='true')     
-      {
-        console.log("Working");
-        this.status=false;
-        console.log(this.status);
-      }
-      });
-        
-      // this.header = new HttpHeaders();
-      // this.header.set('Access-Control-Allow-Origin', '*');
 
-      // this.blacklist=this.data1;
-      if(this.overdraft=="false"){
-        if(this.amount>this.balance)     
-        {
-          this.status=false;
-          console.log("status set to false");
-        }
-
-      }
-      console.log(this.status+"---->Update balance")
-      if(this.status==true){
-        this.url="http://localhost:8080/updateBalance?cust="+this.cusdata[0].username+"&amount="+this.amount+"&rec="+this.userdata[0].username;
-        let response=this.dbshttps.get(this.url,{responseType: 'text' as 'json'});
-        response.subscribe((data)=>{this.data1=data;
-        console.log(this.data1)});
-
-      }
-  
-          this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status="+this.status;
-          // this.url="http://localhost:8080/receiver?cusId=CUS01&amount=500&cusName=TJeevanaRoshini&recId=CUS02&recName=MohammedShariq&status=true"
-          response= this.dbshttps.get(this.url,{responseType: 'text' as 'json'});
-          response.subscribe((data:any)=>{
-          console.log(this.testdata=data);
+        let response=this.dbshttps.get("http://localhost:8080/blacklist?username="+this.userdata[0].username);
           
-          })
+          response.subscribe((data)=>{
+            this.data1=data;
+            this.blacklist=this.data1+""
+            console.log(this.blacklist)
+            
+            if(this.blacklist=='true')     
+            {
+                console.log("Working in blacklist true");
+                this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status=0";
+                let res= this.dbshttps.get(this.url,{responseType: 'text' as 'json'});
+          res.subscribe((data:any)=>{
+          this.testdata=data
+          console.log(this.url+"Showing url last")
           console.log("transaction recorded");
-          // this.router.navigate(['sender'])  .then(() => {
-          //   window.location.reload();
-          // });
+
+          })
+            }
+            else{
+
+              if(this.overdraft=="false"){
+                if(this.amount>this.balance)     
+                {
+                  this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status=0";
+                  let res= this.dbshttps.get(this.url,{responseType: 'text' as 'json'});
+                  res.subscribe((data:any)=>{
+                  this.testdata=data
+                  console.log(this.url+"Showing url last")
+                  console.log("transaction recorded");
+        
+                  })
+                }
+                else{
+                  this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status=1";
+                  let res= this.dbshttps.get(this.url,{responseType: 'text' as 'json'});
+                  res.subscribe((data:any)=>{
+                  this.testdata=data
+                  console.log(this.url+"Showing url last")
+                  console.log("transaction recorded");
+        
+                  })
+
+
+
+                  console.log(this.status+"---->Update balance")
+                  this.url2="http://localhost:8080/updateBalance?cust="+this.cusdata[0].username+"&amount="+this.amount+"&rec="+this.userdata[0].username;
+                  let response=this.dbshttps.get(this.url2,{responseType: 'text' as 'json'});
+                  response.subscribe((data)=>{this.data1=data;
+                  console.log(this.data1)});
+                }
+              }
+             
+              else{
+                
+                this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status=1";
+                let res= this.dbshttps.get(this.url,{responseType: 'text' as 'json'});
+                res.subscribe((data:any)=>{
+                this.testdata=data
+                console.log(this.url+"Showing url last")
+                console.log("transaction recorded");
+                })
+                console.log(this.status+"---->Update balance")
+                this.url2="http://localhost:8080/updateBalance?cust="+this.cusdata[0].username+"&amount="+this.amount+"&rec="+this.userdata[0].username;
+                let response=this.dbshttps.get(this.url2,{responseType: 'text' as 'json'});
+                response.subscribe((data)=>{this.data1=data;
+                console.log(this.data1)});
+                
+                
+              }
+
+            }
+
+          });
+      
+          this.router.navigate(['sender']).then(() => {
+            window.location.reload();
+          });
+          
+          
+
+    }
+    
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if(this.blacklist=="true"){
+  //   this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status=0";
+  // }
+  // else{
+  //   console.log(this.blacklist+"Inside elseeeeeeeeeeeeeeeeee")
+  //   this.url="http://localhost:8080/receiver?cusId="+this.cusdata[0].username+"&amount="+this.amount+"&cusName="+this.cusdata[0].custName+"&recId="+this.userdata[0].username+"&recName="+this.userdata[0].custName+"&status=1";
+  // }
+         
+          // this.url="http://localhost:8080/receiver?cusId=CUS01&amount=500&cusName=TJeevanaRoshini&recId=CUS02&recName=MohammedShariq&status=true"
+          
+          
         // console.log(this.url)
         // console.log(this.testdata)
   
@@ -119,10 +197,3 @@ testdata:any
       
       // "&custname="+this.cusdata[0].cusName+"&bal="+this.cusdata[0].balance+
       // "&overdraft="+this.cusdata[0].overDraft+"&amount="
-
-    }
-    
-
-  }
-
-}
